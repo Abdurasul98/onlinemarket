@@ -21,27 +21,6 @@ class RegisterQueries:
                        VALUES (%s, %s,%s, FALSE) 
                     """
             execute_query(query=query, params=(name, parol, phone))
-
-
-
-            get_id_user = """
-                             SELECT id FROM users WHERE name = %s
-                        """
-            result = execute_query(query=get_id_user, params=(name,),fetch='one')
-
-            if not result:
-                print("User not registered")
-                return None
-
-            user_id = result['id']
-
-
-
-            query = """
-                    INSERT INTO carts (product_name, quantity, price, total, user_id)
-                    VALUES ('', 0, 0, 0, %s)
-                """
-            execute_query(query=query, params=(user_id,))
             print("Added user")
             return True
 
@@ -49,8 +28,6 @@ class RegisterQueries:
         except Exception as e:
             print(e)
             return None
-
-    from core.database import execute_query
 
 
 
@@ -75,6 +52,9 @@ class LoginQueries:
 
             update_query = """UPDATE users SET is_active = TRUE WHERE id = %s"""
             execute_query(query=update_query,params=(user['id'],))
+
+            from apps.user.query import UserQueries
+            UserQueries.current_user_id = user['id']
 
             print(f"Welcome {user['name']}")
             return 'user'

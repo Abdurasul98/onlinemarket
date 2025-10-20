@@ -19,8 +19,9 @@ class Menu:
                 name = input("Enter name: ")
                 parol = input("Enter password: ")
                 role = LoginQueries.login_user((name,parol))
+
                 if role == "user":
-                    return self.user_main()
+                     return self.user_main()
                 elif role == "admin":
                     return self.admin_main()
 

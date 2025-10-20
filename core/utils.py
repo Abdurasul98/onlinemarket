@@ -2,8 +2,8 @@ from apps.user.models import cart_query
 from core.database import execute_query
 
 main_menu = """
-1. User
-2. Admin
+1. Register
+2. Login
 3. Exit
 """
 
@@ -37,8 +37,9 @@ def get_user_option(menu: str, max_option: int):
 
 
 def execute_tables():
-    from apps.user.models import user_query
+    from apps.user.models import cart_query
     from apps.product.models import product_query
+    from apps.register.models import user_query
 
     execute_query(query=user_query)
     execute_query(query=product_query)

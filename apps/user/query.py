@@ -11,7 +11,7 @@ class UserQueries:
 
             result = execute_query(query=query,fetch='all')
 
-            if not result: # oxirida shuni nimaligini sora
+            if not result:
                 return False
 
             for row in result:

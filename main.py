@@ -1,4 +1,5 @@
 from apps.admin.query import AdminQuery
+from apps.register.query import RegisterQueries, LoginQueries
 from apps.user.query import UserQueries
 from core.utils import get_user_option, main_menu, user_menu, admin_menu, execute_tables
 
@@ -9,14 +10,25 @@ class Menu:
             option = get_user_option(menu=main_menu,max_option=3)
 
             if option == "1":
-                return self.user_main()
+                name = input("Enter name: ")
+                parol = input("Enter password: ")
+                phone = input("Enter phone: ")
+                RegisterQueries.register_users((name,parol,phone))
 
             elif option == "2":
-                return self.admin_main()
+                name = input("Enter name: ")
+                parol = input("Enter password: ")
+                role = LoginQueries.login_user((name,parol))
+                if role == "user":
+                    return self.user_main()
+                elif role == "admin":
+                    return self.admin_main()
+
+
 
             elif option == "3":
                 print("Bye")
-                exit()
+                break
 
             else:
                 print("Invalid option")
